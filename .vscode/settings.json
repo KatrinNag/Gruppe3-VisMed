@@ -66,6 +66,6 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Quest-Template.slnx",
+    "dotnet.defaultSolution": "Gruppe3-VisMed.slnx",
     "dotnet.preferCSharpExtension": true
 }

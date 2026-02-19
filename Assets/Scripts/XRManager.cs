@@ -5,7 +5,11 @@ using Unity.XR.CoreUtils;
 
 
 using UnityEngine.InputSystem;
-
+/// commments   C. Menard:
+/// General Comments for XRManager.cs:
+/// es müsste ein changelog existieren, was würde geändert und welche Funktionen sind neu
+/// 
+/// </summary>
 
 public class XRManager : MonoBehaviour
 {
@@ -46,6 +50,9 @@ public class XRManager : MonoBehaviour
     {
         // Controls zuweisen und Events abonnieren
         controls = new InputSystem_Actions();
+
+        /// Comment Menard
+        /// Das ist nicht gut bitte Methoden verwenden nicht alle in Lamba und dann auch noch so viel Logik in den Lambdas. Das macht es extrem unübersichtlich und schwer wartbar. Bitte Methoden wie OnPrevModelPressed() und OnNextModelPressed() erstellen, die dann in den Lambdas aufgerufen werden. Das verbessert die Lesbarkeit enorm.
         controls.XR.PrevModel.performed += ctx => { Debug.Log("🔵 BUTTON A (PrevModel) PRESSED"); PrevModel(); };          // A Button Pressed
         controls.XR.NextModel.performed += ctx => { Debug.Log("🔴 BUTTON B (NextModel) PRESSED"); NextModel(); };          // B Button Pressed
         
@@ -128,7 +135,7 @@ public class XRManager : MonoBehaviour
                 int aNum = ExtractLeadingNumber(aName);
                 int bNum = ExtractLeadingNumber(bName);
                 
-                return aNum.CompareTo(bNum);
+                return aNum.CompareTo(bNum);   /// Comment Menard was passiert hier return ??
             });
 
             Debug.Log($"✅ Loaded {models.Count} models in order: {string.Join(", ", models.ConvertAll(m => m.name))}");
@@ -157,6 +164,13 @@ public class XRManager : MonoBehaviour
     /// <summary>
     /// Update is called once per frame 
     /// </summary>
+    
+    /// Commments C. Menard
+    /// - Hier müssten wirklich CodeSegmente in Methoden gepackt werden.
+    /// - Es gibt aktuell viele Fallbacks und alternative Input-Methoden, damit es auf verschiedenen Setups funktioniert. Das führt zu etwas unübersichtlichem Code in Update(), der aber notwendig ist, um die verschiedenen Möglichkeiten abzudecken (XR Actions, Gamepad, Keyboard). In einer späteren Version
+    /// - sollte dieser Code in separate Methoden ausgelagert werden, um die Lesbarkeit und Wartbarkeit zu verbessern.
+    /// - ähnliche Methoden könnten z.B. GetRotationInput() oder HandleModelRotation() sein, um die Logik zu kapseln und Update() übersichtlicher zu machen.
+    /// 
     void Update()
     {
         // Debug: Log playerMoveInput every frame it has input
@@ -297,6 +311,8 @@ public class XRManager : MonoBehaviour
     /// <summary>
     /// Extrahiert die führende Zahl aus einem String (z.B. "17_Kreuzbein" -> 17)
     /// </summary>
+    /// 
+    /// Commment Menard: Das wäre natürlich durch regex viel transparenter und flexibler, aber um die Abhängigkeit zu System.Text.RegularExpressions zu vermeiden, hier eine einfache manuelle Extraktion.
     private int ExtractLeadingNumber(string name)
     {
         string numberStr = "";
