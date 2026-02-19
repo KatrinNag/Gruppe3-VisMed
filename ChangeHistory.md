@@ -31,7 +31,7 @@ Diese Datei dokumentiert die funktionalen und szenischen Erweiterungen des Unity
 
 - **Bewegung / Panning**:  
   Wenn "alle" angezeigt werden, kann das Parent-Objekt mit dem linken Stick
-  in X/Z verschoben werden.
+  in X/Y verschoben werden.
 
 ---
 
